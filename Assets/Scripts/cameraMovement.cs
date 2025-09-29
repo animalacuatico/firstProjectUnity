@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class cameraMovement : MonoBehaviour
 {
-    public charController player;
+    public charControllerv2 player;
     public float mouseSens = 1000f;
     private float yRotation = 0f;
     void Start()

@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum InterfaceVariable { COINS };
 public class gameManager : MonoBehaviour
 {
     public static gameManager instance;
     public float coins = 0;
     public GameObject Corrutine;
-    //private Corrutine text; comentado para evitar error
+    private Corrutine text;
     private void Awake()
     {
         if (!instance)
@@ -20,9 +19,14 @@ public class gameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void ManipulateCoins(int value)
+    public void IncreasePoint()
     {
-        coins += value;
+        coins++;
+        text.StartFade();
+    }
+    public void Start()
+    {
+        text = FindObjectOfType<Corrutine>();
     }
     public float GetCoins()
     {

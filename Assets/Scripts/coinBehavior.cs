@@ -5,13 +5,13 @@ using UnityEngine;
 public class coinBehavior : MonoBehaviour
 {
     public int coinValue = 1;
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        if (collision.gameObject.GetComponent<charController>())
+        charControllerv2 charController = collider.GetComponent<charControllerv2>();
+        if (charController != null)
         {
-            gameManager.instance.ManipulateCoins(coinValue);
-            Debug.Log("Monedas: " + gameManager.instance.GetCoins());
-            Destroy(gameObject);
+            gameManager.instance.IncreasePoint();
+            Destroy(this.gameObject);
         }
     }
 }
