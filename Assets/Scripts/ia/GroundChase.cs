@@ -2,17 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundChase : MonoBehaviour
+[CreateAssetMenu(fileName = "GroundChase", menuName = "ScriptableObjects/States/GroundChase")]
+public class GroundChase : State
 {
-    // Start is called before the first frame update
-    void Start()
+    public float repathInterval = 0.1f;
+    public float loseSightDelay = 2.0f;
+    float repathTimer, lostTimer;
+    bool sawThisFrame;
+    public override State Run(GameObject owner)
     {
-        
-    }
+        var agent = owner.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        if (agent == null) return this;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        var pref = owner.GetComponent<PlayerRef>();
+        if (pref == null || pref.player == null) return this;
+
+        sawThisFrame = false;
+
+        if (action != null && action.Length > 0 && action[0] != null && action[0].Check(owner))
+        {
+            sawThisFrame = true;
+            lostTimer = 0f;
+        }
+        else
+            lostTimer += Time.deltaTime;
+
+        repathTimer += Time.deltaTime;
+        if (repathTimer >= repathInterval)
+        {
+            agent.SetDestination(pref.player.transform.position);
+            repathTimer = 0f;
+        }
+
+        if (!sawThisFrame && lostTimer >= loseSightDelay)
+            return nextState != null && nextState.Length > 0 ? nextState[0] : this;
+
+        return this;
     }
 }

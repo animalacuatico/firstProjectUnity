@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class buttonManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void LoadMenuScene()
     {
-        
+        gameManager.instance.ChangeScene("Menu");
     }
-
-    // Update is called once per frame
-    void Update()
+    public void LoadPlatformer()
     {
-        
+        gameManager.instance.ChangeScene("Juego");
+    }
+    public void ExitApp()
+    {
+        Application.Quit();
     }
 }

@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class Corrutine : MonoBehaviour
 {
-    public TMPro.TMP_Text point;
+    public TMPro.TMP_Text point, playerHealth;
     void Start()
     {
         point = GetComponent<TMPro.TMP_Text>();
+        playerHealth = GetComponent<TMPro.TMP_Text>();
     }
     void Update()
     {
         point.text = "Coins: " + gameManager.instance.coins;
+        playerHealth.text = "Health: " + gameManager.instance.playerHealth;
     }
     IEnumerator Fade()
     {

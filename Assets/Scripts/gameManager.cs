@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class gameManager : MonoBehaviour
 {
     public static gameManager instance;
-    public float coins = 0;
+    public float coins = 0, playerHealth = 100;
     public GameObject Corrutine;
     private Corrutine text;
     private void Awake()
